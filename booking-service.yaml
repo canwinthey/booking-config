@@ -1,0 +1,44 @@
+server:
+  port: 8094
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+  instance:
+    hostname: localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,health,info
+    health:
+      show-details: always
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./bookingdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none  # Prevents Hibernate from overriding schema.sql
+    database-platform: org.hibernate.dialect.H2Dialect
+  sql:
+    init:
+      mode: always  # Ensures schema.sql and data.sql run at startup
+  h2:
+    console:
+      enabled: true
+      path: /h2-console  # Correct mapping for H2 console
+      settings:
+        trace: false
+        web-allow-others: true
+
+logging:
+  level:
+    org.springframework.jdbc: DEBUG
